@@ -21,8 +21,14 @@ class StatsOverview extends BaseWidget
             Carbon::parse($this->filters['endDate']) :
             now();
 
-        $income = Transaction::incomes()->get()->whereBetween('date_transaction', [$startDate, $endDate])->sum('amount');
-        $expense = Transaction::expenses()->get()->whereBetween('date_transaction', [$startDate, $endDate])->sum('amount');
+        $income = Transaction::incomes()
+            ->whereBetween('date_transaction', [$startDate, $endDate])
+            ->sum('amount');
+
+        $expense = Transaction::expenses()
+            ->whereBetween('date_transaction', [$startDate, $endDate])
+            ->sum('amount');
+
         return [
             Stat::make('Total Expense', $expense),
             Stat::make('Total Income', $income),

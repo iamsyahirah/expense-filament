@@ -2,9 +2,10 @@
 
 namespace App\Filament\Widgets;
 
-use Carbon\Carbon;
+
 use Flowframe\Trend\Trend;
 use App\Models\Transaction;
+use Illuminate\Support\Carbon;
 use Flowframe\Trend\TrendValue;
 use Filament\Widgets\ChartWidget;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
@@ -27,8 +28,8 @@ class WidgetExpenseChart extends ChartWidget
 
         $data = Trend::query(Transaction::expenses())
             ->between(
-                start: now()->startOfYear(),
-                end: now()->endOfYear(),
+                start: $startDate,
+                end: $endDate,
             )
             ->perDay()
             ->sum('amount');
